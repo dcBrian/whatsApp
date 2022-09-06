@@ -28,13 +28,10 @@ const Chat = ({ id, users }: Props) => {
             className={`flex items-center cursor-pointer break-words hover:bg-gray-100`}
         >
             <div className='flex w-full items-center pl-4 '>
-                {recipient ? (
-                    <Avatar image={recipient.photoURL} />
-                ) : (
-                    <Avatar image={recipientEmail} />
-                )}
-                <div className='flex-1 border-b border-gray-200 ml-6 py-5 pr-4'>
-                    {recipient ? recipient.photoURL : recipientEmail}
+                <Avatar image={recipient?.photoURL} />
+
+                <div className='flex-1 border-b border-gray-200 ml-6 py-5 pr-4 select-none'>
+                    {recipient?.email}
                 </div>
             </div>
         </div>

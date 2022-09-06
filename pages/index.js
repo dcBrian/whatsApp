@@ -1,3 +1,4 @@
+import { LockClosedIcon } from '@heroicons/react/24/solid';
 import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 
@@ -8,18 +9,21 @@ export default function Home() {
                 <title>Home</title>
             </Head>
             <Sidebar></Sidebar>
-            <div className='h-g h-screen flex flex-col flex-1 items-center justify-center space-y-10'>
+            <div className=' relative h-g h-screen flex flex-col flex-1 items-center justify-center space-y-10'>
                 <img src='/home_icon.svg' />
                 <div className='text-gray-500 text-sm flex flex-col items-center space-y-4'>
                     <h2 className='text-3xl font-light text-gray-700'>WhatsApp Web</h2>
                     <p className='text-center'>
-                        Envoyez et recevez des messages sans avoir à garder votre téléphone
-                        connecté.
+                        Now send and receive messages without keeping your phone online.
                         <br />
-                        Utilisez WhatsApp sur un maximum de 4 appareils et 1 téléphone,
-                        simultanément.
+                        Use whatsApp on up to 4 linked devices and 1 phone at the same time.
                     </p>
-                    <p></p>
+                </div>
+                <div
+                    className={`absolute text-gray-500 bottom-10 group flex w-full items-center justify-center  text-sm`}
+                >
+                    <LockClosedIcon className='mr-2 -ml-1 h-3 w-3 ' aria-hidden='true' />
+                    End-to-end encrypted
                 </div>
             </div>
         </div>

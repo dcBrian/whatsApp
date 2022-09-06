@@ -14,6 +14,7 @@ type Props = {
 const ChatPage = ({ chat, messages }: Props) => {
     const [user] = useAuthState(auth);
     const recipientEmail = getRecipientEmail(chat.users, user);
+
     return (
         <div className='flex'>
             <Head>

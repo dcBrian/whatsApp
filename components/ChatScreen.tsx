@@ -8,11 +8,13 @@ import {
     query,
     serverTimestamp,
     setDoc,
+    where,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import TimeAgo from 'timeago-react';
 import { auth, db } from '../firebase';
 import Avatar from './Avatar';
 import Message from './Message';
@@ -24,36 +26,39 @@ type Props = {
 };
 
 const ChatScreen = ({ chat, messages, recipientEmail }: Props) => {
-    const [user] = useAuthState(auth);
-    const router = useRouter();
-    const [input, setInput] = useState('');
     const endOfMessages = useRef(null);
-    const [snapshot] = useCollection(
+    const router = useRouter();
+    const [user] = useAuthState(auth);
+    const [input, setInput] = useState('');
+    const [snapshot, loading] = useCollection(
         query(
             collection(db, 'chats', router.query.id as string, 'messages'),
             orderBy('time', 'asc')
         )
     );
+
+    const [recipientSnapshot] = useCollection(
+        query(collection(db, 'users'), where('email', '==', recipientEmail))
+    );
+    const recipient = recipientSnapshot?.docs?.[0]?.data();
+
     const show = () => {
-        return snapshot ? (
-            snapshot.docs.map((e) => (
-                <Message
-                    key={e.id}
-                    user={e.data().user}
-                    item={{
-                        message: e.data().message,
-                        time: e.data().time?.toDate().getTime(),
-                    }}
-                />
-            ))
-        ) : (
-            // : messages?.map((e) => <Message key={e.id} user={e.user} item={e} />);
-            <div>loading</div>
-        );
+        return snapshot
+            ? snapshot.docs.map((e) => (
+                  <Message
+                      key={e.id}
+                      user={e.data().user}
+                      item={{
+                          message: e.data().message,
+                          time: e.data().time?.toDate().getTime(),
+                      }}
+                  />
+              ))
+            : messages?.map((e) => <Message key={e.id} user={e.user} item={e} />);
     };
 
-    const scrollToBottom = () => {
-        endOfMessages.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    const scrollToBottom = (type: string) => {
+        endOfMessages.current.scrollIntoView({ block: 'start', behavior: type });
     };
 
     const sendMessage = (e) => {
@@ -70,16 +75,27 @@ const ChatScreen = ({ chat, messages, recipientEmail }: Props) => {
     };
 
     useEffect(() => {
-        scrollToBottom();
+        if (loading) {
+            scrollToBottom('instant');
+        } else {
+            scrollToBottom('smooth');
+        }
     }, [snapshot]);
 
     return (
         <div className='overflow-hidden h-full flex flex-col'>
-            <div className='h-g h-h sticky top-0 z-50 flex items-center'>
-                <Avatar image={recipientEmail} />
-                <div className='ml-3 flex-1'>
-                    <h3 className='mb-1'>Recipient Email </h3>
-                    <p className='text-gray-400'>Last seen</p>
+            <div className='h-g h-h sticky top-0 flex items-center'>
+                <Avatar image={recipient?.photoURL} />
+                <div className='ml-[14px] pb-1 pt-auto flex-1'>
+                    <h3 className=''>{recipientEmail}</h3>
+                    <p className='text-gray-500 text-xs'>
+                        last active:{' '}
+                        {recipient?.lastSeen?.toDate() ? (
+                            <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                        ) : (
+                            <span>...</span>
+                        )}
+                    </p>
                 </div>
                 <div className='flex space-x-2'>
                     <button className='icon-wrapper'>

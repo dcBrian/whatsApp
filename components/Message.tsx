@@ -9,8 +9,8 @@ const Message = ({ user, item }: Props) => {
     const isMine = user === userLogged.email;
     return (
         <div
-            className={`relative w-fit min-w-[90px] p-3 pb-6 m-3 rounded-md ${
-                isMine ? 'mr-auto bg-lime-200 text-left ' : 'ml-auto bg-gray-100 text-right'
+            className={`relative w-fit min-w-[90px] p-3 pb-6 m-3 rounded-md text-left ${
+                isMine ? 'mr-auto bg-lime-200' : 'ml-auto bg-gray-100'
             }`}
         >
             <p>
