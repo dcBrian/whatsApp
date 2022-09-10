@@ -1,9 +1,8 @@
 import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
 import Head from 'next/head';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getRecipientEmail } from '../../components/Chat';
+import { getRecipientEmail } from '../../components/ChatCard';
 import ChatScreen from '../../components/ChatScreen';
-import Sidebar from '../../components/Sidebar';
 import { auth, db } from '../../firebase';
 
 type Props = {
@@ -16,15 +15,15 @@ const ChatPage = ({ chat, messages }: Props) => {
     const recipientEmail = getRecipientEmail(chat.users, user);
 
     return (
-        <div className='flex'>
+        <>
             <Head>
                 <title>Chat with {recipientEmail}</title>
             </Head>
-            <Sidebar />
+
             <div className="h-screen flex-1 bg-[url('/background.png')]">
                 <ChatScreen chat={chat} messages={messages} recipientEmail={recipientEmail} />
             </div>
-        </div>
+        </>
     );
 };
 
