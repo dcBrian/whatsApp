@@ -1,5 +1,5 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
-import { EllipsisVerticalIcon, PaperClipIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon, EllipsisVerticalIcon, PaperClipIcon } from '@heroicons/react/24/solid';
 import {
     addDoc,
     collection,
@@ -16,6 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import TimeAgo from 'timeago-react';
 import { auth, db } from '../firebase';
+import { useSidebarStore } from '../pages/store';
 import Avatar from './Avatar';
 import Message from './Message';
 
@@ -81,15 +82,23 @@ const ChatScreen = ({ chat, messages, recipientEmail }: Props) => {
             scrollToBottom('smooth');
         }
     }, [snapshot]);
-
+    const status = useSidebarStore((state) => state.status);
+    const handleSideClick = useSidebarStore((state) => state.setTrue);
     return (
-        <div className='overflow-hidden h-full flex flex-col'>
+        <div
+            className={`overflow-hidden h-full md:flex flex-col ${
+                status ? 'hidden' : 'flex w-full'
+            }`}
+        >
             <div className='h-g h-h sticky top-0 flex items-center'>
+                <button className='icon-wrapper block md:hidden mr-4' onClick={handleSideClick}>
+                    <ArrowLeftIcon className='icon' />
+                </button>
                 <Avatar image={recipient?.photoURL} />
                 <div className='ml-[14px] pb-1 pt-auto flex-1'>
                     <h3 className=''>{recipientEmail}</h3>
                     <p className='text-gray-500 text-xs'>
-                        last active:{' '}
+                        last active:
                         {recipient?.lastSeen?.toDate() ? (
                             <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
                         ) : (

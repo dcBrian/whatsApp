@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
+import { useSidebarStore } from '../pages/store';
 import Avatar from './Avatar';
 import Box from './Box';
 import ChatCard from './ChatCard';
@@ -42,6 +43,7 @@ const Sidebar = () => {
         if (!router?.query?.id || chat.id !== router?.query?.id) {
             Router.push(`/chat/${chat.id}`);
         }
+        handleSideClick();
     };
 
     const handleInput = (e: string) => {
@@ -55,13 +57,19 @@ const Sidebar = () => {
     const doesChatExist = (recipientEmail) =>
         snapshot?.docs?.find((chat) => chat.data().users.find((u) => u === recipientEmail));
 
+    const status = useSidebarStore((state) => state.status);
+    const handleSideClick = useSidebarStore((state) => state.setFalse);
     return (
-        <div className='min-w-[450px] border-r border-gray-200'>
+        <div
+            className={`md:block md:w-[300px] lg:w-[450px] border-r border-gray-200 ${
+                status ? 'block w-full' : 'hidden'
+            }`}
+        >
             <div className='h-g h-h flex sticky top-0 justify-between items-center'>
                 <Avatar image={user.photoURL} />
 
                 <div className='flex space-x-2'>
-                    <button className='icon-wrapper tooltip group'>
+                    <button className='icon-wrapper'>
                         <ChatBubbleBottomCenterTextIcon className='icon' />
                     </button>
                     <Dropdown />
