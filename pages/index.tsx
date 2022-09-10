@@ -1,14 +1,20 @@
 import { LockClosedIcon } from '@heroicons/react/24/solid';
 import Head from 'next/head';
+import { useSidebarStore } from '../store';
 
 export default function Home() {
+    const status = useSidebarStore((state) => state.status);
     return (
         <>
             <Head>
                 <title>Home</title>
             </Head>
 
-            <div className=' relative h-g h-screen flex flex-col flex-1 items-center justify-center space-y-10'>
+            <div
+                className={`relative h-g h-screen md:flex flex-col flex-1 items-center justify-center space-y-10 ${
+                    status ? 'hidden' : 'flex'
+                }`}
+            >
                 <img src='/home_icon.svg' />
                 <div className='text-gray-500 text-sm flex flex-col items-center space-y-4'>
                     <h2 className='text-3xl font-light text-gray-700'>WhatsApp Web</h2>

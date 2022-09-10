@@ -98,7 +98,7 @@ const ChatScreen = ({ chat, messages, recipientEmail }: Props) => {
                 <div className='ml-[14px] pb-1 pt-auto flex-1'>
                     <h3 className=''>{recipientEmail}</h3>
                     <p className='text-gray-500 text-xs'>
-                        last active:
+                        last active:{' '}
                         {recipient?.lastSeen?.toDate() ? (
                             <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
                         ) : (

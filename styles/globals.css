@@ -4,7 +4,7 @@
 
 @layer components {
     .icon-wrapper {
-        @apply relative p-[10px] active:bg-gray-200 rounded-full;
+        @apply relative p-[10px] hover:bg-gray-200 rounded-full;
     }
     .icon {
         @apply h-6 w-6 cursor-pointer text-gray-600;

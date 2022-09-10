@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { addDoc, collection, query, where } from 'firebase/firestore';
 import Router, { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
@@ -25,6 +25,9 @@ const Sidebar = () => {
     const [focus, setFocus] = useState(false);
     const [contact, setContact] = useState([]);
     const router = useRouter();
+    const closeSideBar = useSidebarStore((state) => state.setFalse);
+    const openSideBar = useSidebarStore((state) => state.setTrue);
+
     const [snapshot] = useCollection(
         query(collection(db, 'chats'), where('users', 'array-contains', user?.email))
     );
@@ -43,8 +46,14 @@ const Sidebar = () => {
         if (!router?.query?.id || chat.id !== router?.query?.id) {
             Router.push(`/chat/${chat.id}`);
         }
-        handleSideClick();
+        closeSideBar();
     };
+
+    useEffect(() => {
+        if (router.asPath === '/') {
+            openSideBar();
+        }
+    }, []);
 
     const handleInput = (e: string) => {
         setInput(e);
@@ -58,7 +67,7 @@ const Sidebar = () => {
         snapshot?.docs?.find((chat) => chat.data().users.find((u) => u === recipientEmail));
 
     const status = useSidebarStore((state) => state.status);
-    const handleSideClick = useSidebarStore((state) => state.setFalse);
+
     return (
         <div
             className={`md:block md:w-[300px] lg:w-[450px] border-r border-gray-200 ${
@@ -128,7 +137,7 @@ const Sidebar = () => {
                 )
             ) : (
                 <>
-                    <Box title>Contacts</Box>
+                    <Box title>Registered Users</Box>
                     {contact.length > 0 ? (
                         contact.map((contact) =>
                             contact.email === user.email ? (
