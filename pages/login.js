@@ -8,7 +8,7 @@ const Login = () => {
     const [signInWithGoogle] = useSignInWithGoogle(auth);
 
     return (
-        <div className='grid h-screen place-items-center p-32 bg-gray-100'>
+        <div className='grid h-screen place-items-center bg-gray-100 p-8'>
             <Head>
                 <title>Login </title>
             </Head>

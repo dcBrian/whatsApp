@@ -29,13 +29,13 @@
 </p>
 
 <p align="center">
-  <!-- <a href="https://whatsApp-ebon.vercel.app/">View Demo</a> -->
+  <a href="https://whatsApp-ebon.vercel.app/">View Demo</a>
 </p>
 
 ## Key Features
 
 * Responsive layout (mobile, tablet, pc)
-* Server side Rendering (to some extend because it's a live chat)
+* Server side Rendering (to some extend)
 * Images optimization
 * Authentication with official Google account
 * Create a new Chat
