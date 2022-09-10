@@ -16,7 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import TimeAgo from 'timeago-react';
 import { auth, db } from '../firebase';
-import { useSidebarStore } from '../pages/store';
+import { useSidebarStore } from '../store';
 import Avatar from './Avatar';
 import Message from './Message';
 

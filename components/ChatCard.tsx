@@ -3,7 +3,7 @@ import Router, { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
-import { useSidebarStore } from '../pages/store';
+import { useSidebarStore } from '../store';
 import ProfileCard from './ProfileCard';
 
 type Props = {
