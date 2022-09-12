@@ -33,6 +33,7 @@
 </p>
 
 ## To Do
+- [ ] Add notifications when receiving message
 - [ ] Implement fuzzy search when looking for registered users
 - [ ] Optimize loading by prefetching user's chat on startup (rather than on chat click)
 - [ ] Improve design for Login page
