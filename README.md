@@ -20,7 +20,7 @@
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#credits">Credits</a> •
-  <a href="#you-may-also-like...">Related</a> •
+  <a href="#you-may-also-like">Related</a> •
   <a href="#contact">Contact</a>
 </p>
 
@@ -31,6 +31,12 @@
 <p align="center">
   <a href="https://whatsApp-ebon.vercel.app/">View Demo</a>
 </p>
+
+## To Do
+- [ ] Implement fuzzy search when looking for registered users
+- [ ] Optimize loading by prefetching user's chat on startup (rather than on chat click)
+- [ ] Improve design for Login page
+
 
 ## Key Features
 
