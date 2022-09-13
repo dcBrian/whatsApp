@@ -25,13 +25,13 @@
 </p>
 
 <p align="center">
- <a href="https://whats-app-ebon.vercel.app/">
+ <a href="https://whats-app-omega.vercel.app/">
   <img src="/images/whatsApp.gif?raw=true"/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://whats-app-ebon.vercel.app/">View Demo</a>
+  <a href="https://whats-app-omega.vercel.app/">View Demo</a>
 </p>
 
 ## To Do
